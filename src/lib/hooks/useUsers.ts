@@ -1,7 +1,7 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { getUsers, loginUser, loadUser, logoutUser, addUser, editUser, deleteUser } from "../services/users.service";
 
-function useUser() {
+function useUsers() {
     const getUserQuery = () => {
         return useQuery({ queryKey: ['users'], queryFn: getUsers, refetchOnWindowFocus: false, retry: 0 })
     }
@@ -41,4 +41,4 @@ function useUser() {
     }
 }
 
-export default useUser;
+export default useUsers;
