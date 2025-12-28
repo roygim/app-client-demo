@@ -65,3 +65,14 @@ export const editUser = async ({ userId, firstName, lastName }: { userId: number
         throw error;
     }
 }
+
+export const deleteUser = async ({ userId }: { userId: number }) => {
+    try {
+        const data = await usersRepositpry.deleteUser({ userId });
+
+        return data;
+    }
+    catch (error) {
+        throw error;
+    }
+}

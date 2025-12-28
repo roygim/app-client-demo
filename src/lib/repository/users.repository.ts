@@ -106,12 +106,29 @@ export const editUser = async ({ userId, firstName, lastName }: { userId: number
             lastName 
         };
 
-        const response = await axios.post(url, data, { withCredentials: true });
+        const response = await axios.put(url, data, { withCredentials: true });
 
         if (response && response.data && response.data.success) {
             return response.data.data;
         } else {
             throw new Error('error to edit user');
+        }
+    }
+    catch (error) {
+        throw error;
+    }
+}
+
+export const deleteUser = async ({ userId }: { userId: number }) => {
+    try {
+        const url = `${process.env.API_BASE_URL}/deleteuser/${userId}`;
+
+        const response = await axios.delete(url, { withCredentials: true });
+
+        if (response && response.data && response.data.success) {
+            return response.data;
+        } else {
+            throw new Error('error to delete user');
         }
     }
     catch (error) {
