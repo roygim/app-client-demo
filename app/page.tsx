@@ -2,7 +2,7 @@ import { cn } from "@/src/lib/utils/common.util"
 
 export default function Home() {
   return (
-    <h1 className={cn("text-3xl font-bold", "underline", "text-error")}>
+    <h1 className={cn("text-3xl font-bold", "underline", "text-success")}>
       Hello world!
     </h1>
   );
