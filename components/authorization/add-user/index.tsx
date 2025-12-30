@@ -1,8 +1,9 @@
 'use client'
 
 import { Box, InputGroup, Input, Button } from '@chakra-ui/react'
+import { useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
-import { FaUserAlt } from 'react-icons/fa'
+import { FaRegEye, FaUserAlt } from 'react-icons/fa'
 import { MdEmail } from "react-icons/md";
 import { RiLockPasswordFill } from "react-icons/ri";
 
@@ -15,6 +16,8 @@ interface AddInputs {
 }
 
 function AddUser() {
+    const [showPassword, setShowPassword] = useState(false)
+
     const {
         handleSubmit,
         control,
@@ -141,10 +144,25 @@ function AddUser() {
                             <div>
                                 <InputGroup
                                     startElement={<RiLockPasswordFill />}
+                                    endElement={
+                                        <button
+                                            type='button'
+                                            onMouseDown={(e) => {
+                                                e.preventDefault()
+                                                setShowPassword(true)
+                                            }}
+                                            onMouseUp={(e) => {
+                                                e.preventDefault()
+                                                setShowPassword(false)
+                                            }}
+                                        >
+                                            <FaRegEye />
+                                        </button>
+                                    }
                                 >
                                     <Input
                                         {...field}
-                                        type='text'
+                                        type={showPassword ? 'text' : 'password'}
                                         border="1px solid"
                                         borderColor="gray.300"
                                         placeholder='password'
