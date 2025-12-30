@@ -3,9 +3,12 @@
 import useUsers from '@/lib/hooks/useUsers'
 import { User } from '@/lib/types'
 import { cn } from '@/lib/utils/common.util'
+import { useRouter } from 'next/navigation'
 import { FaRegEdit, FaRegTrashAlt } from 'react-icons/fa'
+import { FiPlusCircle } from 'react-icons/fi'
 
 function Users() {
+    const router = useRouter();
     const { getUserQuery } = useUsers()
 
     const { data: users, isLoading, isSuccess, isError, error } = getUserQuery()
@@ -107,6 +110,13 @@ function Users() {
                         }
                     </tbody>
                 </table>
+            </div>
+            <div className='pt-3 pl-2'>
+                <button
+                    onClick={(e) => router.push('/register')}
+                >
+                    <FiPlusCircle size={32} className='text-background-tertiary' />
+                </button>
             </div>
         </div>
     )

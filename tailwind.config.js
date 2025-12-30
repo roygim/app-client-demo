@@ -11,6 +11,7 @@ module.exports = {
         background: {
           primary: '#c1deff',
           secondary: '#84afff',
+          tertiary: '#5c8de9',
         },
         info: {
           success: '#16a34a',
