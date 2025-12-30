@@ -1,8 +1,11 @@
+import { mockUsers } from "../mock/users.mock";
 import * as usersRepositpry from "../repository/users.repository";
 import { User } from "../types";
 
 export const getUsers = async (): Promise<User[]> => {
     try {
+        return mockUsers
+        
         const data = await usersRepositpry.getUsers();
 
         return data;
