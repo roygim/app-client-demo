@@ -1,9 +1,11 @@
-import { cn } from "@/src/lib/utils/common.util"
+import Users from "@/components/users";
+import { cn } from "@/lib/utils/common.util";
+import './globals.css';
 
 export default function Home() {
   return (
-    <h1 className={cn("text-3xl font-bold", "underline", "text-success")}>
-      Hello world!
-    </h1>
+    <div>
+      <Users />
+    </div>
   );
 }

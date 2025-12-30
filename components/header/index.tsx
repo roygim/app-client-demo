@@ -3,12 +3,12 @@
 import { useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { LogoIcon } from '@/src/assets/logo';
+import { LogoIcon } from '@/assets/logo';
 import logoIconSvg from "@/public/images/logo-icon.svg";
 import Image from 'next/image';
-import { UserContext } from '@/src/lib/context/user/user.context';
-import { UserContextValue } from '@/src/lib/context/user/user.type';
-import useUsers from '@/src/lib/hooks/useUsers';
+import { UserContext } from '@/lib/context/user/user.context';
+import { UserContextValue } from '@/lib/context/user/user.type';
+import useUsers from '@/lib/hooks/useUsers';
 
 function Header() {
     const router = useRouter()
