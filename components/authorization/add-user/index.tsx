@@ -211,8 +211,8 @@ function AddUser() {
                     type='submit'
                     variant='solid'
                     width='full'
-                    borderRadius={0}
-                    className='mt-8'
+                    borderRadius='4px'
+                    className='mt-8 bg-background-secondary'
                 >
                     Add User
                 </Button>

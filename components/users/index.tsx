@@ -87,6 +87,7 @@ function Users() {
                                     </td>
                                     <td className='border-b border-gray-200 bg-white px-5 py-5 text-sm'>
                                         <button
+                                            className='cursor-pointer'
                                             onClick={(e) => {
                                                 e.preventDefault()
                                                 handleEditUserClick(user)
@@ -97,6 +98,7 @@ function Users() {
                                     </td>
                                     <td className='border-b border-gray-200 bg-white px-5 py-5 text-sm'>
                                         <button
+                                            className='cursor-pointer'
                                             onClick={(e) => {
                                                 e.preventDefault()
                                                 handleDeleteUserClick(user)
@@ -113,6 +115,7 @@ function Users() {
             </div>
             <div className='pt-3 pl-2'>
                 <button
+                    className='cursor-pointer'
                     onClick={(e) => router.push('/register')}
                 >
                     <FiPlusCircle size={32} className='text-background-tertiary' />
