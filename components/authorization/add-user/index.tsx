@@ -2,6 +2,7 @@
 
 import { toaster } from '@/components/ui/toaster';
 import useUsers from '@/lib/hooks/useUsers';
+import { ResponseError } from '@/lib/types';
 import { Box, InputGroup, Input, Button } from '@chakra-ui/react'
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -22,6 +23,9 @@ function AddUser() {
     const router = useRouter()
     const { addUserMutation } = useUsers()
     const [showPassword, setShowPassword] = useState(false)
+    const [error, setError] = useState('')
+
+    const { mutateAsync: addUserAsync, isPending } = addUserMutation()
 
     const {
         handleSubmit,
@@ -41,15 +45,44 @@ function AddUser() {
     let pwd = watch("newPassword")
 
     const addUserSubmit: SubmitHandler<AddInputs> = async (data) => {
-        console.log('data', data);
-        toaster.create({
-            description: "File saved successfully",
-            type: "success",
-        })
+        if (isPending)
+            return
+
+        setError('')
+
+        const { firstName, lastName, email, newPassword } = data
+
+        try {
+            const res = await addUserAsync({ firstName, lastName, email, password: newPassword })
+
+            if (res && res.success) {
+                toaster.create({
+                    description: "User added successfully",
+                    type: "success"
+                })
+                router.push(`/`)
+            } else {
+                setError("error occurred")
+            }
+        } catch (error: any) {
+            const errType = error?.response?.data?.error
+            if (errType) {
+                switch (errType) {
+                    case ResponseError.InValidRequest:
+                        setError("error occurred")
+                        break;
+                    default:
+                        setError("error occurred")
+                        break;
+                }
+            } else {
+                setError("error occurred")
+            }
+        }
     }
 
     return (
-        <Box bg="white" borderWidth='1px' borderRadius='lg' padding='24px' shadow='lg' className='w-full sm:max-w-[468px]'>
+        <Box bg="white" borderWidth='1px' borderRadius='lg' padding='24px' paddingBottom={error ? '0' : '24px'} shadow='lg' className='w-full sm:max-w-[468px]'>
             <form onSubmit={handleSubmit(addUserSubmit)}>
                 <div className='space-y-4'>
                     <Controller
@@ -226,6 +259,14 @@ function AddUser() {
                     Add User
                 </Button>
             </form>
+            {
+                error &&
+                <div className='flex  justify-center py-3'>
+                    <span className='text-sm text-info-error'>
+                        {error}
+                    </span>
+                </div>
+            }
         </Box>
     )
 }
