@@ -3,6 +3,7 @@
 import { toaster } from '@/components/ui/toaster';
 import useUsers from '@/lib/hooks/useUsers';
 import { ResponseError } from '@/lib/types';
+import { delay } from '@/lib/utils/common.util';
 import { Box, InputGroup, Input, Button } from '@chakra-ui/react'
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -49,6 +50,8 @@ function AddUser() {
             return
 
         setError('')
+
+        await delay()
 
         const { firstName, lastName, email, newPassword } = data
 

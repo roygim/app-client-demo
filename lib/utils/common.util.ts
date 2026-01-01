@@ -8,3 +8,9 @@ export function clone<T>(a: T): T {
 export function cn(...input: ClassValue[]): string {
     return twMerge(clsx(...input));
 }
+
+export async function delay(duration: number = 3000): Promise<null> {
+    return new Promise(resolve =>
+        setTimeout(resolve, duration)
+    );
+}
