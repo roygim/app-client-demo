@@ -1,6 +1,9 @@
 'use client'
 
+import { toaster } from '@/components/ui/toaster';
+import useUsers from '@/lib/hooks/useUsers';
 import { Box, InputGroup, Input, Button } from '@chakra-ui/react'
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { FaRegEye, FaUserAlt } from 'react-icons/fa'
@@ -16,6 +19,8 @@ interface AddInputs {
 }
 
 function AddUser() {
+    const router = useRouter()
+    const { addUserMutation } = useUsers()
     const [showPassword, setShowPassword] = useState(false)
 
     const {
@@ -36,7 +41,11 @@ function AddUser() {
     let pwd = watch("newPassword")
 
     const addUserSubmit: SubmitHandler<AddInputs> = async (data) => {
-
+        console.log('data', data);
+        toaster.create({
+            description: "File saved successfully",
+            type: "success",
+        })
     }
 
     return (
