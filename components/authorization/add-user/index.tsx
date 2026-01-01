@@ -4,7 +4,7 @@ import { toaster } from '@/components/ui/toaster';
 import useUsers from '@/lib/hooks/useUsers';
 import { ResponseError } from '@/lib/types';
 import { delay } from '@/lib/utils/common.util';
-import { Box, InputGroup, Input, Button } from '@chakra-ui/react'
+import { Box, InputGroup, Input, Button, Spinner } from '@chakra-ui/react'
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
@@ -24,9 +24,10 @@ function AddUser() {
     const router = useRouter()
     const { addUserMutation } = useUsers()
     const [showPassword, setShowPassword] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState('')
 
-    const { mutateAsync: addUserAsync, isPending } = addUserMutation()
+    const { mutateAsync: addUserAsync } = addUserMutation()
 
     const {
         handleSubmit,
@@ -46,16 +47,16 @@ function AddUser() {
     let pwd = watch("newPassword")
 
     const addUserSubmit: SubmitHandler<AddInputs> = async (data) => {
-        if (isPending)
+        if (isLoading)
             return
-
-        setError('')
-
-        await delay()
 
         const { firstName, lastName, email, newPassword } = data
 
         try {
+            setError('')
+            setIsLoading(true)
+            // await delay()
+
             const res = await addUserAsync({ firstName, lastName, email, password: newPassword })
 
             if (res && res.success) {
@@ -81,6 +82,8 @@ function AddUser() {
             } else {
                 setError("error occurred")
             }
+        } finally {
+            setIsLoading(false)
         }
     }
 
@@ -258,8 +261,9 @@ function AddUser() {
                     width='full'
                     borderRadius='4px'
                     className='mt-8 bg-background-secondary'
+                    disabled={isLoading}
                 >
-                    Add User
+                    {isLoading ? <Spinner size="sm" mr={2} /> : 'Add User'}
                 </Button>
             </form>
             {
