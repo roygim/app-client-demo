@@ -58,13 +58,37 @@ function Header() {
         <nav className='flex justify-between items-center py-6'>
             <Link href='/'>
                 {/* <LogoIcon /> */}
-                <Image
-                    src={logoIconSvg}
-                    alt="Follow us on Twitter"
-                    width={24}
-                    height={24}
-                />
+                <div className='flex items-center gap-2'>
+                    <Image
+                        src={logoIconSvg}
+                        alt="Follow us on Twitter"
+                        width={24}
+                        height={24}
+                    />
+                    <span className='text-xl font-semibold capitalize'>
+                        my app
+                    </span>
+                </div>
             </Link>
+            {
+                !isUserLogin ?
+                    <Link href='/login' className='text-sm font-semibold'>
+                        Sign In <span>&rarr;</span>
+                    </Link>
+                    :
+                    <div className='flex items-center gap-2'>
+                        <div className='text-sm font-semibold'>
+                            Hi, <span className='capitalize'>{user?.firstName}</span>
+                        </div>
+                        <button
+                            className='text-sm font-semibold'
+                            onClick={logoutUser}
+                        >
+                            Logout
+                            <span style={{ textDecoration: 'none' }}>&rarr;</span>
+                        </button>
+                    </div>
+            }
         </nav>
     )
 }
